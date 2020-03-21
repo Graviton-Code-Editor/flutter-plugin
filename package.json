@@ -1,0 +1,15 @@
+{
+	"name": "flutter-plugin-graviton",
+	"version": "0.1.01",
+	"main": "dist/main.js",
+	"mainDev": "parcel/main.js",
+	"scripts": {
+		"dev": "parcel serve main.js --out-file main.js --target node --bundle-node-modules --out-dir parcel",
+		"build": "parcel build main.js --out-file main.js --target node --bundle-node-modules "
+	},
+	"dependencies": {
+		"flutter-node": "^0.1.1",
+		"parcel": "^1.12.4"
+	},
+	"license": "MIT"
+}
