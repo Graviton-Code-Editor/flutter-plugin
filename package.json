@@ -1,15 +1,18 @@
 {
 	"name": "flutter-plugin-graviton",
-	"version": "0.1.01",
-	"main": "dist/main.js",
-	"mainDev": "parcel/main.js",
+	"version": "0.1.3",
+	"main": "main.js",
+	"mainSrc": "main.js",
+	"mainDev": "dist/main.js",
 	"scripts": {
-		"dev": "parcel serve main.js --out-file main.js --target node --bundle-node-modules --out-dir parcel",
-		"build": "parcel build main.js --out-file main.js --target node --bundle-node-modules "
+		"watch": "gvsdk --entry package.json --target plugin --mode dev",
+		"build": "gvsdk --entry package.json --target plugin --mode release"
 	},
 	"dependencies": {
-		"flutter-node": "^0.1.1",
-		"parcel": "^1.12.4"
+		"flutter-node": "^0.1.1"
 	},
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"@gveditor/sdk": "^0.1.3"
+	}
 }

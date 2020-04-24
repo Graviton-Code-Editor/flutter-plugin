@@ -3,7 +3,8 @@ import Flutter from 'flutter-node'
 function entry({
 	StatusBarItem,
 	ContextMenu,
-	RunningConfig
+	RunningConfig,
+	envClient
 }){
 	let _devices = [
 		{
@@ -80,12 +81,12 @@ function entry({
 			})
 		}
 	})
-	Flutter.isInstalled().then(res=>{
+	Flutter.isInstalled().then( res => {
 		if( !res ){
 			button.setLabel('Flutter is not installed')
 		}
 	})
-	Flutter.getDevices().then(function(res){
+	Flutter.getDevices().then( res => {
 		if(res.devices.length == 0){
 			button.setLabel('No devices found')
 		}else{
@@ -93,7 +94,6 @@ function entry({
 			_devices = res.devices
 		}
 	})
-
 }
 
 module.exports = {
