@@ -6,22 +6,24 @@ function entry({
 	RunningConfig,
 	envClient
 }){
-	let _devices = [
+	let flutterDevices = [
 		{
 			name:'No devices found.'
 		}
 	]
-	let _app;
+	let flutterApp;
+	let selectedDevice;
 	const button = new StatusBarItem({
 		label:'Detecting devices',
 		action:(e)=>{
 			new ContextMenu({
 				list:[
 					...
-					_devices.map(function(dev){
+					flutterDevices.map( device => {
 						return {
-							label:dev.name,
+							label: device.name,
 							action:()=>{
+								selectedDevice = device
 							}
 						}
 					}),
@@ -32,32 +34,11 @@ function entry({
 							new ContextMenu({
 								list:[
 									...
-									RunningConfig.data.workspaceConfig.folders.map(function(folder){
+									RunningConfig.data.workspaceConfig.folders.map( folder => {
 										return {
-											label:folder.path,
-											action:()=>{
-												_app = new Flutter.app({
-													path:RunningConfig.data.workspaceConfig.folders[0].path.replace(/\\/g,'\\\\'),
-													deviceId:_devices[0].id
-												})
-												_app.run({
-													onData:function(data){
-														console.log(data)
-													},
-													onExit:function(data){
-														console.log(data)
-													},
-													onClose:function(data){
-														console.log(data)
-													}
-												})
-												RunningConfig.on('tabSaved',function({
-													parentFolder
-												}){
-													if(parentFolder == folder.path){ //Check if the modified tab is from the flutter app
-														_app.reload()
-													}
-												})
+											label: folder.path,
+											action(){
+												runApp(flutterApp,folder,selectedDevice,envClient,RunningConfig)
 											}
 										}
 									})
@@ -71,7 +52,13 @@ function entry({
 					{
 						label:'Hot reload',
 						action(){
-							_app.reload()
+							flutterApp && flutterApp.reload()
+						}
+					},
+					{
+						label:'Close',
+						action(){
+							flutterApp && flutterApp.close()
 						}
 					}
 				],
@@ -87,14 +74,51 @@ function entry({
 		}
 	})
 	Flutter.getDevices().then( res => {
-		if(res.devices.length == 0){
+		if( res.devices.length == 0 ){
 			button.setLabel('No devices found')
 		}else{
-			button.setLabel(res.devices[0].name)
-			_devices = res.devices
+			selectedDevice = res.devices[0]
+			button.setLabel( selectedDevice.name )
+			flutterDevices = res.devices
 		}
 	})
 }
+
+function runApp(flutterApp,folder,selectedDevice,envClient,RunningConfig){
+	if( !selectedDevice ) return
+	flutterApp = new Flutter.app({
+		path: folder.path,
+		deviceId: selectedDevice.id
+	})
+	const flutterEnv = new envClient({
+		name: 'Flutter'
+	})
+	flutterEnv.on('start',()=>{
+		flutterApp.run({
+			onData:function(data){
+				console.log(data)
+			},
+			onExit:function(data){
+				console.log(data)
+			},
+			onClose:function(data){
+				console.log(data)
+			}
+		})
+		RunningConfig.on('tabSaved',({ parentFolder }) => {
+			if( parentFolder == folder.path ){ 
+				flutterApp.reload();
+			}
+		})
+	})
+	flutterEnv.on('stop',() => {
+		flutterApp && flutterApp.close()
+	})
+	flutterEnv.on('reload',() => {
+		flutterApp && flutterApp.reload()
+	})
+}
+
 
 module.exports = {
 	entry

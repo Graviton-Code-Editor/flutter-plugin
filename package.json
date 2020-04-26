@@ -1,6 +1,6 @@
 {
 	"name": "flutter-plugin-graviton",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"main": "main.js",
 	"mainSrc": "main.js",
 	"mainDev": "dist/main.js",
@@ -9,7 +9,7 @@
 		"build": "gvsdk --entry package.json --target plugin --mode release"
 	},
 	"dependencies": {
-		"flutter-node": "^0.1.1"
+		"flutter-node": "^0.1.2"
 	},
 	"license": "MIT",
 	"devDependencies": {
