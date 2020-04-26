@@ -1,5 +1,6 @@
 {
-	"name": "flutter-plugin-graviton",
+	"name": "FlutterPlugin",
+	"name": "flutter-plugin",
 	"version": "0.1.4",
 	"main": "main.js",
 	"mainSrc": "main.js",
