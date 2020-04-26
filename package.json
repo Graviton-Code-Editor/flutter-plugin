@@ -1,6 +1,6 @@
 {
 	"name": "FlutterPlugin",
-	"name": "flutter-plugin",
+	"id": "flutter-plugin",
 	"version": "0.1.4",
 	"main": "main.js",
 	"mainSrc": "main.js",
