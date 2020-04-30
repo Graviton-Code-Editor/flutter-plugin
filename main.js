@@ -4,7 +4,7 @@ function entry({
 	StatusBarItem,
 	ContextMenu,
 	RunningConfig,
-	envClient
+	EnvClient
 }){
 	let flutterDevices = [
 		{
@@ -38,7 +38,7 @@ function entry({
 										return {
 											label: folder.path,
 											action(){
-												runApp(flutterApp,folder,selectedDevice,envClient,RunningConfig)
+												runApp(flutterApp,folder,selectedDevice,EnvClient,RunningConfig)
 											}
 										}
 									})
@@ -84,13 +84,13 @@ function entry({
 	})
 }
 
-function runApp(flutterApp,folder,selectedDevice,envClient,RunningConfig){
+function runApp(flutterApp,folder,selectedDevice,EnvClient,RunningConfig){
 	if( !selectedDevice ) return
 	flutterApp = new Flutter.app({
 		path: folder.path,
 		deviceId: selectedDevice.id
 	})
-	const flutterEnv = new envClient({
+	const flutterEnv = new EnvClient({
 		name: 'Flutter'
 	})
 	flutterEnv.on('start',()=>{
