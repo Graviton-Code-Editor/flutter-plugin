@@ -1,9 +1,32 @@
-# Flutter
+## 🕊 Flutter
 
-This is a flutter plugin for Graviton Editor v2, this might be a little unstable. Create an issue if it's needed.
+This is a flutter plugin for [Graviton Editor](https://github.com/Graviton-Code-Editor/Graviton-App)
 
-Features:
+### ✨ Features:
 * Run a project to your devices ( not emulators yet )
 * Hot reload to update changes
 
-Author: Marc Espín Sanz
+WIP, Contributions / suggestions are welcomed.
+
+## 🕹 Developing
+Clone the repo to the desired .graviton2/plugins:
+```shell
+git clone https://github.com/Graviton-Code-Editor/flutter-plugin.git 
+```
+
+Install dependencies:
+```shell
+npm install
+```
+
+Run locally:
+```shell
+npm run watch
+```
+
+Build (optional):
+```shell
+npm run build
+```
+
+Made by Marc Espín Sanz.
