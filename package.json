@@ -10,7 +10,8 @@
 		"build": "gvsdk --entry package.json --target plugin --mode release"
 	},
 	"dependencies": {
-		"flutter-node": "^0.1.2"
+		"flutter-node": "^0.1.2",
+		"lodash": "^4.17.19"
 	},
 	"license": "MIT",
 	"devDependencies": {
